@@ -7,15 +7,6 @@ from measurement.models import Sensor, Measurement
 
 class SensorSerializer(serializers.ModelSerializer):
 
-    def create(self, validated_data):
-        return Sensor.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.description = validated_data.get('description', instance.description)
-        instance.save()
-        return instance
-
     class Meta:
 
         model = Sensor
@@ -27,10 +18,7 @@ class MeasurementSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = Measurement
-        fields = ['sensor', 'temperature', 'created_at']
-
-    def create(self, validated_data):
-        return Measurement.objects.create(**validated_data)
+        fields = ['temperature', 'created_at']
 
 
 class SensorDetailsSerializer(serializers.ModelSerializer):
@@ -41,5 +29,7 @@ class SensorDetailsSerializer(serializers.ModelSerializer):
 
         model = Sensor
         fields = ['id', 'name', 'description', 'measurements']
+
+
 
 
